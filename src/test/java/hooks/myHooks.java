@@ -13,7 +13,7 @@ public class myHooks {
 
     @Before
     public void setUp(){
-        driverFactory.initializeBrowserDriver("Edge");
+        driverFactory.initializeBrowserDriver("Chrome");
         webdriver = driverFactory.getDriver();
         webdriver.manage().deleteAllCookies();
         webdriver.manage().window().maximize();
