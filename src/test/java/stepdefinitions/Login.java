@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Date;
+
 
 public class Login {
 
@@ -38,16 +40,21 @@ public class Login {
     public void user_should_get_successfully_logged_in() {
         Assert.assertTrue(webDriver.findElement(By.linkText("Edit your account information")).isDisplayed());
     }
-    @When("User enters invalid email address {string} in the email field")
-    public void user_enters_invalid_email_address_in_the_email_field(String invalidEmailAddr) {
-        webDriver.findElement(By.id("input-email")).sendKeys(invalidEmailAddr);
+
+    @When("User enters invalid email address in the email fields")
+    public void user_enters_invalid_email_address_in_the_email_fields() {
+        webDriver.findElement(By.id("input-email")).sendKeys(getEmailWithTimeStamp());
+    }
+
+    public String getEmailWithTimeStamp(){
+        Date date = new Date();
+        return "amotoori"+date.toString().replace(" ","_").replace(":","_")+"@gmail.com";
     }
 
     @When("User had entered a invalid password {string}")
     public void user_had_entered_a_invalid_password(String invalidPwd) {
         webDriver.findElement(By.id("input-password")).sendKeys(invalidPwd);
     }
-
 
     @Then("User gets warning message for invalid credentials mismatch")
     public void user_gets_warning_message_for_invalid_credentials_mismatch() {

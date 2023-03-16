@@ -9,7 +9,7 @@ Feature: Login functionality
 
   Scenario: Login with invalid credentials.
     Given User navigates to login page
-    When User enters invalid email address "amotooricap955555@gmail.com" in the email field
+    When User enters invalid email address in the email fields
     And User had entered a invalid password "123456789"
     And User clicks on Login button
     Then User gets warning message for invalid credentials mismatch
