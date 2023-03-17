@@ -45,7 +45,7 @@ public class Register {
 
     @Then("User Account should be created successfully")
     public void user_account_should_be_created_successfully() {
-        Assert.assertEquals("Your Account Has Been Created!", webDriver.findElement(By.xpath("//div[@id='Content']/h1")).getText());
+        Assert.assertEquals("Your Account Has Been Created!", webDriver.findElement(By.xpath("//h1[normalize-space()='Your Account Has Been Created!']")).getText());
     }
 
     @When("User selects Yes for Newsletter")
@@ -55,7 +55,7 @@ public class Register {
 
     @Then("User Account should get error message with duplicate email")
     public void user_account_should_get_error_message_with_duplicate_email() {
-        Assert.assertEquals(" Warning: E-Mail Address is already registered!", webDriver.findElement(By.xpath("//div[@class='alert alert-danger alert-dismissible']")).getText());
+        Assert.assertEquals("Warning: E-Mail Address is already registered!", webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
         //Assert.assertTrue(webDriver.findElement(By.xpath("//div[@class='alert alert-danger alert-dismissible']")).getText().contains(" Warning: E-Mail Address is already registered!"));
     }
 
@@ -67,11 +67,12 @@ public class Register {
     @Then("User should get proper warning message for all mandatory fields")
     public void user_should_get_proper_warning_message_for_all_mandatory_fields() {
 //div[@class='alert alert-danger alert-dismissible']
-        Assert.assertTrue(webDriver.findElement(By.xpath("//div[@class='alert alert-danger alert-dismissible']")).getText().contains(" Warning: You must agree to the Privacy Policy!"));
+        //Assert.assertTrue(webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText().contains("Warning: You must agree to the Privacy Policy!"));
+        Assert.assertEquals("Warning: You must agree to the Privacy Policy!",webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
         Assert.assertEquals("First Name must be between 1 and 32 characters!",webDriver.findElement(By.xpath("//div[contains(text(),'First Name must be between 1 and 32 characters!')]")).getText());
-        Assert.assertEquals("Last Name must be between 1 and 32 characters!",webDriver.findElement(By.className("text-danger")).getText());
-        Assert.assertEquals("E-Mail Address does not appear to be valid!",webDriver.findElement(By.className("text-danger")).getText());
-        Assert.assertEquals("Telephone must be between 3 and 32 characters!",webDriver.findElement(By.className("text-danger")).getText());
-        Assert.assertEquals("Password must be between 4 and 20 characters!",webDriver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div")).getText());
+        Assert.assertEquals("Last Name must be between 1 and 32 characters!",webDriver.findElement(By.xpath("//input[@id='input-lastname']/following-sibling::div")).getText());
+        Assert.assertEquals("E-Mail Address does not appear to be valid!",webDriver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div")).getText());
+        Assert.assertEquals("Telephone must be between 3 and 32 characters!",webDriver.findElement(By.xpath("//input[@id='input-telephone']/following-sibling::div")).getText());
+        Assert.assertEquals("Password must be between 4 and 20 characters!",webDriver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div")).getText());
     }
 }

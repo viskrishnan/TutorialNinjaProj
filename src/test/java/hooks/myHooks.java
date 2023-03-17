@@ -4,8 +4,10 @@ import Factory.driverFactory;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.openqa.selenium.WebDriver;
+import utils.ConfigReader;
 
 import java.time.Duration;
+import java.util.Properties;
 
 public class myHooks {
 
@@ -13,12 +15,13 @@ public class myHooks {
 
     @Before
     public void setUp(){
-        driverFactory.initializeBrowserDriver("Edge");
+        Properties properties = ConfigReader.initializeConfigProperties();
+        driverFactory.initializeBrowserDriver(properties.getProperty("browser"));
         webdriver = driverFactory.getDriver();
         webdriver.manage().deleteAllCookies();
         webdriver.manage().window().maximize();
         webdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        webdriver.get("http://tutorialsninja.com/demo/");
+        webdriver.get(properties.getProperty("URL"));
 
     }
 

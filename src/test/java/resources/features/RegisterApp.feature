@@ -5,7 +5,7 @@ Feature: Registration Functionality
     When User enters the below fields
       | firstName | Krishnan                         |
       | lastName  | Subramanian                      |
-      | email     | krishnansubramanian007@gmail.com |
+      | email     | krishnansubramanian008@gmail.com |
       | telephone | 93807014                         |
       | password  | 12345                            |
     And User clicks on Privacy policy
