@@ -6,56 +6,72 @@ import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.AccountWarningsPage;
+import pages.AccountSuccessPage;
+import pages.HomePage;
+import pages.RegisterPage;
 
 import java.util.Map;
 
 public class Register {
 
     WebDriver webDriver;
+    HomePage homePage = new HomePage(webDriver);
+    RegisterPage registerPage = new RegisterPage(webDriver);
+    AccountSuccessPage accountSuccessPage = new AccountSuccessPage(webDriver);
 
+    AccountWarningsPage accountWarningsPage = new AccountWarningsPage(webDriver);
     @Given("User navigates to Register account page")
     public void user_navigates_to_register_account_page() {
         webDriver = driverFactory.getDriver();
-        webDriver.findElement(By.xpath(" //span[normalize-space()='My Account']")).click();
-        webDriver.findElement(By.linkText("Register")).click();
+        homePage.clickOnMyAccount();
+        homePage.clickOnRegister();
+        //webDriver.findElement(By.xpath(" //span[normalize-space()='My Account']")).click();
+        //webDriver.findElement(By.linkText("Register")).click();
     }
 
     @When("User enters the below fields")
     public void user_enters_the_below_fields(DataTable dataTable) {
         Map<String, String> dataMap = dataTable.asMap(String.class,String.class);
-        webDriver.findElement(By.id("input-firstname")).sendKeys(dataMap.get("firstName"));
-        webDriver.findElement(By.id("input-lastname")).sendKeys(dataMap.get("lastName"));
-        webDriver.findElement(By.id("input-email")).sendKeys(dataMap.get("email"));
-        webDriver.findElement(By.id("input-telephone")).sendKeys(dataMap.get("telephone"));
-        webDriver.findElement(By.id("input-password")).sendKeys(dataMap.get("password"));
-        webDriver.findElement(By.id("input-confirm")).sendKeys(dataMap.get("password"));
-
-
+        registerPage.enterRegistrationFieldsFirstName(dataMap.get("firstName"));
+        registerPage.enterRegistrationFieldsLastName(dataMap.get("lastName"));
+        registerPage.enterRegistrationFieldsEmail(dataMap.get("email"));
+        registerPage.setEnterTelephoneNumber(dataMap.get("telephone"));
+        registerPage.setEnterPassword(dataMap.get("password"));
+        registerPage.setEnterPasswordConfirm(dataMap.get("password"));
+//        webDriver.findElement(By.id("input-lastname")).sendKeys(dataMap.get("lastName"));
+//        webDriver.findElement(By.id("input-email")).sendKeys(dataMap.get("email"));
+//        webDriver.findElement(By.id("input-telephone")).sendKeys(dataMap.get("telephone"));
+//        webDriver.findElement(By.id("input-password")).sendKeys(dataMap.get("password"));
+//        webDriver.findElement(By.id("input-confirm")).sendKeys(dataMap.get("password"));
     }
 
     @When("User clicks on Privacy policy")
     public void user_clicks_on_privacy_policy() {
-        webDriver.findElement(By.xpath("//input[@name='agree']")).click();
+        registerPage.setPrivacy_policy();
+        //webDriver.findElement(By.xpath("//input[@name='agree']")).click();
     }
 
     @When("User clicks on Continue button")
     public void user_clicks_on_continue_button() {
-        webDriver.findElement(By.xpath("//input[@value='Continue']")).click();
+        registerPage.clickContinueButton();
+        //webDriver.findElement(By.xpath("//input[@value='Continue']")).click();
     }
 
     @Then("User Account should be created successfully")
     public void user_account_should_be_created_successfully() {
-        Assert.assertEquals("Your Account Has Been Created!", webDriver.findElement(By.xpath("//h1[normalize-space()='Your Account Has Been Created!']")).getText());
+        Assert.assertEquals("Your Account Has Been Created!", accountSuccessPage.setAccountCreationSuccess());
     }
 
     @When("User selects Yes for Newsletter")
     public void user_selects_yes_for_newsletter() {
-        webDriver.findElement(By.xpath("//label[normalize-space()='Yes']//input[@name='newsletter']")).click();
+        registerPage.selectYesForNewsLetter();
+        //webDriver.findElement(By.xpath("//label[normalize-space()='Yes']//input[@name='newsletter']")).click();
     }
 
     @Then("User Account should get error message with duplicate email")
     public void user_account_should_get_error_message_with_duplicate_email() {
-        Assert.assertEquals("Warning: E-Mail Address is already registered!", webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
+        Assert.assertEquals("Warning: E-Mail Address is already registered!", accountWarningsPage.checkDuplicateEmail() );
         //Assert.assertTrue(webDriver.findElement(By.xpath("//div[@class='alert alert-danger alert-dismissible']")).getText().contains(" Warning: E-Mail Address is already registered!"));
     }
 
@@ -66,13 +82,12 @@ public class Register {
 
     @Then("User should get proper warning message for all mandatory fields")
     public void user_should_get_proper_warning_message_for_all_mandatory_fields() {
-//div[@class='alert alert-danger alert-dismissible']
         //Assert.assertTrue(webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText().contains("Warning: You must agree to the Privacy Policy!"));
-        Assert.assertEquals("Warning: You must agree to the Privacy Policy!",webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
-        Assert.assertEquals("First Name must be between 1 and 32 characters!",webDriver.findElement(By.xpath("//div[contains(text(),'First Name must be between 1 and 32 characters!')]")).getText());
-        Assert.assertEquals("Last Name must be between 1 and 32 characters!",webDriver.findElement(By.xpath("//input[@id='input-lastname']/following-sibling::div")).getText());
-        Assert.assertEquals("E-Mail Address does not appear to be valid!",webDriver.findElement(By.xpath("//input[@id='input-email']/following-sibling::div")).getText());
-        Assert.assertEquals("Telephone must be between 3 and 32 characters!",webDriver.findElement(By.xpath("//input[@id='input-telephone']/following-sibling::div")).getText());
-        Assert.assertEquals("Password must be between 4 and 20 characters!",webDriver.findElement(By.xpath("//input[@id='input-password']/following-sibling::div")).getText());
+        Assert.assertEquals("Warning: You must agree to the Privacy Policy!",accountWarningsPage.setAgreePrivacyPolicyWarning());
+        Assert.assertEquals("First Name must be between 1 and 32 characters!",accountWarningsPage.setFirstNameWaring());
+        Assert.assertEquals("Last Name must be between 1 and 32 characters!",accountWarningsPage.setLastNameWaring());
+        Assert.assertEquals("E-Mail Address does not appear to be valid!",accountWarningsPage.setEmailAddressWaring());
+        Assert.assertEquals("Telephone must be between 3 and 32 characters!",accountWarningsPage.setTelephoneNumberWaring());
+        Assert.assertEquals("Password must be between 4 and 20 characters!",accountWarningsPage.setPasswordCharactersWarning());
     }
 }

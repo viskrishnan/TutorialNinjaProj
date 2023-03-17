@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +26,27 @@ public class HomePage {
 
     public void clickOnLogin(){
         loginOption.click();
+    }
+
+    @FindBy(linkText = "Register")
+    private WebElement registerPage;
+
+    public void clickOnRegister(){
+        registerPage.click();
+    }
+
+    @FindBy(name = "search")
+    private WebElement enterProductIntoSearchBoxField;
+
+    public void setEnterProductIntoSearchBoxField(String searchCriteria){
+        enterProductIntoSearchBoxField.sendKeys(searchCriteria);
+    }
+
+    @FindBy(xpath = "//i[@class='fa fa-search']")
+    private WebElement clickSearchButton;
+
+    public void setClickSearchButton(){
+        clickSearchButton.click();
     }
 
 }
