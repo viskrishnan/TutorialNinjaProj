@@ -49,7 +49,25 @@ public class LoginPage {
         invalidEmailAddress.sendKeys(invalidPwd);
     }
 
+    @FindBy(xpath = "//div[contains(@class,'alert-dismissible')]")
+    private WebElement invalidCredentialsMismatch;
 
+    public String validateInvalidCredentialsMismatch(){
+        return invalidCredentialsMismatch.getText();
+    }
 
+    @FindBy(id = "input-email")
+    private WebElement doNotEnterEmailAddr;
+
+    public void setDoNotEnterEmailAddr(){
+        doNotEnterEmailAddr.sendKeys("");
+    }
+
+    @FindBy(id = "input-password")
+    private WebElement doNotEnterPassword;
+
+    public void setDoNotEnterPassword(){
+        doNotEnterPassword.sendKeys("");
+    }
 
 }

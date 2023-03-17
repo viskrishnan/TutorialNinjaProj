@@ -64,16 +64,18 @@ public class Login {
 
     @Then("User gets warning message for invalid credentials mismatch")
     public void user_gets_warning_message_for_invalid_credentials_mismatch() {
-        Assert.assertTrue(webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText().contains("Warning: No match for E-Mail Address and/or Password."));
+        Assert.assertTrue(loginPage.validateInvalidCredentialsMismatch().contains("Warning: No match for E-Mail Address and/or Password."));
     }
 
     @When("User does not enter email address in the email field")
     public void user_does_not_enter_email_address_in_the_email_field() {
-        webDriver.findElement(By.id("input-email")).sendKeys("");
+        loginPage.setDoNotEnterEmailAddr();
+        //webDriver.findElement(By.id("input-email")).sendKeys("");
     }
     @When("User does not enter password in the password field")
     public void user_does_not_enter_password_in_the_password_field() {
-        webDriver.findElement(By.id("input-password")).sendKeys("");
+        loginPage.setDoNotEnterPassword();
+        //webDriver.findElement(By.id("input-password")).sendKeys("");
     }
 
 }
