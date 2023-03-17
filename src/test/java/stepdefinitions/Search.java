@@ -3,17 +3,16 @@ package stepdefinitions;
 import Factory.driverFactory;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.HomePage;
-import pages.SearchResults;
+import pages.SearchResultsPage;
 
 public class Search {
 
     WebDriver webDriver;
 
     HomePage homePage = new HomePage(webDriver);
-    SearchResults searchResults = new SearchResults(webDriver);
+    SearchResultsPage searchResultsPage = new SearchResultsPage(webDriver);
     @Given("User opens the Application")
     public void user_opens_the_application() {
         webDriver = driverFactory.getDriver();
@@ -34,18 +33,18 @@ public class Search {
 
     @Then("User should get valid product displayed in search results")
     public void user_should_get_valid_product_displayed_in_search_results() {
-        Assert.assertTrue(searchResults.setSearchValidProduct());
+        Assert.assertTrue(searchResultsPage.setSearchValidProduct());
     }
 
     @When("User enters invalid product {string} into search box field")
     public void user_enters_invalid_product_into_search_box_field(String invalidProdSearch) {
-        searchResults.searchInvalidProduct(invalidProdSearch);
+        searchResultsPage.searchInvalidProduct(invalidProdSearch);
 //        webDriver.findElement(By.name("search")).sendKeys(invalidProdSearch);
     }
 
     @Then("User should get a message about no product listing")
     public void user_should_get_a_message_about_no_product_listing() {
-        Assert.assertEquals("There is no product that matches the search criteria.", searchResults.validateNoResultSearch());
+        Assert.assertEquals("There is no product that matches the search criteria.", searchResultsPage.validateNoResultSearch());
     }
 
     @When("User does not enter valid any product details into search box field")
