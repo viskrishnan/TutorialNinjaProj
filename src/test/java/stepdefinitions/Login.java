@@ -1,7 +1,9 @@
 package stepdefinitions;
 
 import Factory.driverFactory;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,32 +24,34 @@ public class Login {
     public void user_navigates_to_login_page() {
 
         webDriver = driverFactory.getDriver();
-        homePage.clickOnMyAccount();
-        homePage.clickOnLogin();
-        //webDriver.findElement(By.xpath("//span[normalize-space()='My Account']")).click();
-        //webDriver.findElement(By.linkText("Login")).click();
+//        homePage.clickOnMyAccount();
+//        homePage.clickOnLogin();
+        webDriver.findElement(By.xpath("//span[text()='My Account']")).click();
+        webDriver.findElement(By.linkText("Login")).click();
     }
 
     @When("User enters valid email address {string} in the email field")
     public void user_enters_valid_email_address_in_the_email_field(String emailAddress) {
-        loginPage.setEnterEmailAddr(emailAddress);
+        //loginPage.setEnterEmailAddr(emailAddress);
+        webDriver.findElement(By.id("input-email")).sendKeys(emailAddress);
     }
 
     @When("User had entered a valid password {string}")
     public void user_had_entered_a_valid_password(String password) {
-        loginPage.setEnterPassword(password);
-        //webDriver.findElement(By.id("input-password")).sendKeys(password);
+        //loginPage.setEnterPassword(password);
+        webDriver.findElement(By.id("input-password")).sendKeys(password);
     }
 
     @When("User clicks on Login button")
     public void user_clicks_on_login_button() {
-        loginPage.clickOnLogin();
-        //webDriver.findElement(By.xpath("//input[@value='Login']")).click();
+        //loginPage.clickOnLogin();
+        webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
     }
     @Then("User should get successfully logged in")
     public void user_should_get_successfully_logged_in() {
-        Assert.assertTrue(accountPage.displayAccountInfo());
+        //Assert.assertTrue(accountPage.displayAccountInfo());
+        Assert.assertTrue(webDriver.findElement(By.linkText("Edit your account information")).isDisplayed());
     }
 
     @When("User enters invalid email address in the email fields")

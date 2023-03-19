@@ -14,7 +14,7 @@ public class HomePage {
         PageFactory.initElements(webDriver,this);
     }
 
-    @FindBy(xpath ="//span[normalize-space()='My Account']")
+    @FindBy(xpath ="//span[text()='My Account']")
     private WebElement myAccountMenu;
 
     public void clickOnMyAccount(){

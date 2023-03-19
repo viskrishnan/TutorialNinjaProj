@@ -2,12 +2,13 @@ package stepdefinitions;
 
 import Factory.driverFactory;
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import pages.AccountWarningsPage;
 import pages.AccountSuccessPage;
+import pages.AccountWarningsPage;
 import pages.HomePage;
 import pages.RegisterPage;
 
