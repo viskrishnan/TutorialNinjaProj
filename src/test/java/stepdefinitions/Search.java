@@ -1,6 +1,6 @@
 package stepdefinitions;
 
-import Factory.driverFactory;
+import Factory.DriverFactory;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,22 +12,29 @@ import pages.SearchResultsPage;
 public class Search {
 
     WebDriver webDriver;
-
-    HomePage homePage = new HomePage(webDriver);
-    SearchResultsPage searchResultsPage = new SearchResultsPage(webDriver);
+    private HomePage homePage;
+    private SearchResultsPage searchResultsPage;
     @Given("User opens the Application")
     public void user_opens_the_application() {
-        webDriver = driverFactory.getDriver();
+        webDriver = DriverFactory.getDriver();
     }
 
     @When("User enters valid product {string} into search box field")
     public void user_enters_valid_product_into_search_box_field(String searchValidProduct) {
+        homePage = new HomePage(webDriver);
         homePage.setEnterProductIntoSearchBoxField(searchValidProduct);
         //webDriver.findElement(By.name("search")).sendKeys(searchValidProduct);
     }
 
+    @When("User enters invalid product {string} into search box field")
+    public void user_enters_invalid_product_into_search_box_field(String invalidProdSearch) {
+        homePage = new HomePage(webDriver);
+        homePage.setEnterProductIntoSearchBoxField(invalidProdSearch);
+//        webDriver.findElement(By.name("search")).sendKeys(invalidProdSearch);
+    }
     @When("User clicks on Search button")
     public void user_clicks_on_search_button() {
+        homePage = new HomePage(webDriver);
         homePage.setClickSearchButton();
         //webDriver.findElement(By.xpath("//i[@class='fa fa-search']")).click();
 
@@ -35,17 +42,15 @@ public class Search {
 
     @Then("User should get valid product displayed in search results")
     public void user_should_get_valid_product_displayed_in_search_results() {
+        searchResultsPage = new SearchResultsPage(webDriver);
         Assert.assertTrue(searchResultsPage.setSearchValidProduct());
     }
 
-    @When("User enters invalid product {string} into search box field")
-    public void user_enters_invalid_product_into_search_box_field(String invalidProdSearch) {
-        searchResultsPage.searchInvalidProduct(invalidProdSearch);
-//        webDriver.findElement(By.name("search")).sendKeys(invalidProdSearch);
-    }
+
 
     @Then("User should get a message about no product listing")
     public void user_should_get_a_message_about_no_product_listing() {
+        searchResultsPage = new SearchResultsPage(webDriver);
         Assert.assertEquals("There is no product that matches the search criteria.", searchResultsPage.validateNoResultSearch());
     }
 

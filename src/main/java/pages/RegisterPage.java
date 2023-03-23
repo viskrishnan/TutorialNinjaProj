@@ -54,8 +54,8 @@ public class RegisterPage {
         enterPassword.sendKeys(enterPwd);
     }
 
-    public void setEnterPasswordConfirm(String enterPasswordConfirm){
-        setEnterPasswordConfirm(enterPasswordConfirm);
+    public void setEnterPasswordConfirm(String enterPwdConfirm){
+        enterPasswordConfirm.sendKeys(enterPwdConfirm);
     }
 
     public void setPrivacy_policy(){

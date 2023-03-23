@@ -14,7 +14,7 @@ public class SearchResultsPage {
         PageFactory.initElements(webDriver,this);
     }
 
-    @FindBy(linkText = "HP LP3065")
+    @FindBy(xpath = "//a[normalize-space()='HP LP3065']")
     private WebElement searchValidProduct;
 
     public boolean setSearchValidProduct(){
@@ -24,8 +24,7 @@ public class SearchResultsPage {
     private WebElement searchInvalidProduct;
 
     public void searchInvalidProduct(String invalidProduct){
-        searchValidProduct.sendKeys(invalidProduct);
-
+        searchInvalidProduct.sendKeys(invalidProduct);
     }
     @FindBy(xpath = "//p[contains(text(),'There is no product that matches the search criter')]")
     private WebElement noResultSearch;

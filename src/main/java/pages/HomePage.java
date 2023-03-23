@@ -15,24 +15,26 @@ public class HomePage {
     }
 
     @FindBy(xpath ="//span[text()='My Account']")
-    private WebElement myAccountMenu;
+    private WebElement myAccountDropMenu;
 
     public void clickOnMyAccount(){
-        myAccountMenu.click();
+        myAccountDropMenu.click();
     }
 
     @FindBy(linkText = "Login")
-    private WebElement loginOption;
+    private WebElement loginToApplication;
 
-    public void clickOnLogin(){
-        loginOption.click();
+    public LoginPage clickOnApplicationLogin(){
+        loginToApplication.click();
+        return new LoginPage(webDriver);
     }
 
     @FindBy(linkText = "Register")
     private WebElement registerPage;
 
-    public void clickOnRegister(){
+    public RegisterPage clickOnRegister(){
         registerPage.click();
+        return new RegisterPage(webDriver);
     }
 
     @FindBy(name = "search")

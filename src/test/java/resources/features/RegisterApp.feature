@@ -5,7 +5,7 @@ Feature: Registration Functionality
     When User enters the below fields
       | firstName | Krishnan                         |
       | lastName  | Subramanian                      |
-      | email     | krishnansubramanian009@gmail.com |
+      | email     | krishnansubramanian011@gmail.com |
       | telephone | 93807014                         |
       | password  | 12345                            |
     And User clicks on Privacy policy
@@ -14,7 +14,7 @@ Feature: Registration Functionality
 
   Scenario: User account creation with duplicate details
     Given User navigates to Register account page
-    When User enters the below fields
+    When User enters the below fields with duplicate email address
       | firstName | Krishnan                         |
       | lastName  | Subramanian                      |
       | email     | krishnansubramanian007@gmail.com |

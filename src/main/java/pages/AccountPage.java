@@ -14,7 +14,7 @@ public class AccountPage {
         PageFactory.initElements(webDriver,this);
     }
 
-    @FindBy(linkText = "Edit your account information")
+    @FindBy(xpath = "//a[normalize-space()='Edit your account information']")
     private WebElement editYourAccountInfoOption;
 
     public boolean displayAccountInfo(){
