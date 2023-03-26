@@ -4,10 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.CommonUtils;
+import utils.ElementsUtils;
 
 public class HomePage {
 
     WebDriver webDriver;
+    private ElementsUtils elementsUtils;
 
     public HomePage(WebDriver webDriver){
         this.webDriver = webDriver;
@@ -18,14 +21,14 @@ public class HomePage {
     private WebElement myAccountDropMenu;
 
     public void clickOnMyAccount(){
-        myAccountDropMenu.click();
+        elementsUtils.clickOnElement(myAccountDropMenu, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
     }
 
     @FindBy(linkText = "Login")
     private WebElement loginToApplication;
 
     public LoginPage clickOnApplicationLogin(){
-        loginToApplication.click();
+        elementsUtils.clickOnElement(loginToApplication, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
         return new LoginPage(webDriver);
     }
 
@@ -33,7 +36,7 @@ public class HomePage {
     private WebElement registerPage;
 
     public RegisterPage clickOnRegister(){
-        registerPage.click();
+        elementsUtils.clickOnElement(registerPage, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
         return new RegisterPage(webDriver);
     }
 
@@ -47,8 +50,9 @@ public class HomePage {
     @FindBy(xpath = "//i[@class='fa fa-search']")
     private WebElement clickSearchButton;
 
-    public void setClickSearchButton(){
-        clickSearchButton.click();
+    public SearchResultsPage setClickSearchButton(){
+        elementsUtils.clickOnElement(clickSearchButton, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        return new SearchResultsPage(webDriver);
     }
 
 }

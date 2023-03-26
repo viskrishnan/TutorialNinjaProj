@@ -4,10 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.CommonUtils;
+import utils.ElementsUtils;
 
 public class LoginPage {
 
     WebDriver webDriver;
+    ElementsUtils elementsUtils;
 
     public LoginPage(WebDriver webDriver){
         this.webDriver = webDriver;
@@ -30,8 +33,9 @@ public class LoginPage {
     @FindBy(xpath = "//input[@value='Login']")
     private WebElement clickLogin;
 
-    public void clickOnLogin(){
-        clickLogin.click();
+    public AccountPage clickOnLoginButton(){
+        elementsUtils.clickOnElement(clickLogin, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        return new AccountPage(webDriver);
     }
 
     @FindBy(id = "input-email")

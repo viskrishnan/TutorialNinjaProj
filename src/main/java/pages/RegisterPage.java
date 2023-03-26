@@ -4,10 +4,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import utils.CommonUtils;
+import utils.ElementsUtils;
 
 public class RegisterPage {
 
     WebDriver webDriver;
+    ElementsUtils elementUtils;
 
     public RegisterPage(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -29,13 +32,13 @@ public class RegisterPage {
     private WebElement enterPasswordConfirm;
 
     @FindBy(xpath = "//input[@name='agree']")
-    private WebElement privacy_policy;
+    private WebElement privacyPolicyOption;
 
     @FindBy(xpath = "//input[@value='Continue']")
     private WebElement continueButton;
 
     @FindBy(xpath = "//label[normalize-space()='Yes']//input[@name='newsletter']")
-  private WebElement setYesForNewsLetter;
+  private WebElement YesNewsletterOption;
 
     public void enterRegistrationFieldsFirstName(String enterFirstName){
         enterRegistrationFieldsFirstName.sendKeys(enterFirstName);
@@ -59,15 +62,16 @@ public class RegisterPage {
     }
 
     public void setPrivacy_policy(){
-        privacy_policy.click();
+        elementUtils.clickOnElement(privacyPolicyOption, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
     }
 
-    public void clickContinueButton(){
-        continueButton.click();
+    public AccountSuccessPage clickContinueButton(){
+        elementUtils.clickOnElement(continueButton,CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        return new AccountSuccessPage(webDriver);
     }
 
     public void selectYesForNewsLetter(){
-        setYesForNewsLetter.click();
+        elementUtils.clickOnElement(YesNewsletterOption,CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
     }
 
 

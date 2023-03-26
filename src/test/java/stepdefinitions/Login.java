@@ -43,7 +43,7 @@ public class Login {
 
     @When("User clicks on Login button")
     public void user_clicks_on_login_button() {
-        loginPage.clickOnLogin();
+        loginPage.clickOnLoginButton();
         //webDriver.findElement(By.xpath("//input[@value='Login']")).click();
 
     }
