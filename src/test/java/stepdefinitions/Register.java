@@ -44,7 +44,7 @@ public class Register {
         registerPage.enterRegistrationFieldsLastName(dataMap.get("lastName"));
         commonUtils = new CommonUtils();
         registerPage.enterRegistrationFieldsEmail(commonUtils.getEmailWithTimeStamp());
-        registerPage.setEnterTelephoneNumber(dataMap.get("telephone"));
+        registerPage.enterTelephoneNumber(dataMap.get("telephone"));
         registerPage.setEnterPassword(dataMap.get("password"));
         registerPage.setEnterPasswordConfirm(dataMap.get("password"));
 //        webDriver.findElement(By.id("input-lastname")).sendKeys(dataMap.get("lastName"));
@@ -60,7 +60,7 @@ public class Register {
         registerPage.enterRegistrationFieldsFirstName(dataMap.get("firstName"));
         registerPage.enterRegistrationFieldsLastName(dataMap.get("lastName"));
         registerPage.enterRegistrationFieldsEmail(dataMap.get("email"));
-        registerPage.setEnterTelephoneNumber(dataMap.get("telephone"));
+        registerPage.enterTelephoneNumber(dataMap.get("telephone"));
         registerPage.setEnterPassword(dataMap.get("password"));
         registerPage.setEnterPasswordConfirm(dataMap.get("password"));
 //        webDriver.findElement(By.id("input-lastname")).sendKeys(dataMap.get("lastName"));
@@ -97,25 +97,36 @@ public class Register {
 
     @Then("User Account should get error message with duplicate email")
     public void user_account_should_get_error_message_with_duplicate_email() {
-        //accountWarningsPage = new AccountWarningsPage(webDriver);
+        Assert.assertTrue(registerPage.getWarningMessageText().contains("Warning: E-Mail Address is already registered!"));
         //Assert.assertEquals("Warning: E-Mail Address is already registered!", accountWarningsPage.checkDuplicateEmail() );
-        Assert.assertEquals("Warning: E-Mail Address is already registered!", webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
+        //Assert.assertEquals("Warning: E-Mail Address is already registered!", webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText());
     }
 
     @Then("User does not enter any user details")
     public void user_does_not_enter_any_user_details() {
-        //Intentionally kept blank
+        registerPage.enterRegistrationFieldsFirstName("");
+        registerPage.enterRegistrationFieldsLastName("");
+        registerPage.enterRegistrationFieldsEmail("");
+        registerPage.enterTelephoneNumber("");
+        registerPage.setEnterPassword("");
+        registerPage.setEnterPasswordConfirm("");
     }
 
     @Then("User should get proper warning message for all mandatory fields")
     public void user_should_get_proper_warning_message_for_all_mandatory_fields() {
-        accountWarningsPage = new AccountWarningsPage(webDriver);
+//        accountWarningsPage = new AccountWarningsPage(webDriver);
         //Assert.assertTrue(webDriver.findElement(By.xpath("//div[contains(@class,'alert-dismissible')]")).getText().contains("Warning: You must agree to the Privacy Policy!"));
-        Assert.assertEquals("Warning: You must agree to the Privacy Policy!",accountWarningsPage.setAgreePrivacyPolicyWarning());
-        Assert.assertEquals("First Name must be between 1 and 32 characters!",accountWarningsPage.setFirstNameWaring());
-        Assert.assertEquals("Last Name must be between 1 and 32 characters!",accountWarningsPage.setLastNameWaring());
-        Assert.assertEquals("E-Mail Address does not appear to be valid!",accountWarningsPage.setEmailAddressWaring());
-        Assert.assertEquals("Telephone must be between 3 and 32 characters!",accountWarningsPage.setTelephoneNumberWaring());
-        Assert.assertEquals("Password must be between 4 and 20 characters!",accountWarningsPage.setPasswordCharactersWarning());
+//        Assert.assertEquals("Warning: You must agree to the Privacy Policy!",accountWarningsPage.setAgreePrivacyPolicyWarning());
+//        Assert.assertEquals("First Name must be between 1 and 32 characters!",accountWarningsPage.setFirstNameWaring());
+//        Assert.assertEquals("Last Name must be between 1 and 32 characters!",accountWarningsPage.setLastNameWaring());
+//        Assert.assertEquals("E-Mail Address does not appear to be valid!",accountWarningsPage.setEmailAddressWaring());
+//        Assert.assertEquals("Telephone must be between 3 and 32 characters!",accountWarningsPage.setTelephoneNumberWaring());
+//        Assert.assertEquals("Password must be between 4 and 20 characters!",accountWarningsPage.setPasswordCharactersWarning());
+        Assert.assertTrue(registerPage.getWarningMessageText().contains("Warning: You must agree to the Privacy Policy!"));
+        Assert.assertEquals("First Name must be between 1 and 32 characters!",registerPage.getFirstNameWarning());
+        Assert.assertEquals("Last Name must be between 1 and 32 characters!",registerPage.getLastNameWarning());
+        Assert.assertEquals("E-Mail Address does not appear to be valid!",registerPage.getEmailWarning());
+        Assert.assertEquals("Telephone must be between 3 and 32 characters!",registerPage.getTelephoneWarning());
+        Assert.assertEquals("Password must be between 4 and 20 characters!",registerPage.getPasswordWarning());
     }
 }

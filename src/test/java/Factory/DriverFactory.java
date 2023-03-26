@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import utils.CommonUtils;
 
 import java.time.Duration;
 
@@ -42,7 +43,8 @@ public class DriverFactory {
         }
         webdriver.manage().deleteAllCookies();
         webdriver.manage().window().maximize();
-        webdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        webdriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(CommonUtils.PAGE_LOAD_TIME));
+        webdriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(CommonUtils.IMPLICIT_WAIT_TIME));
         return webdriver;
     }
 

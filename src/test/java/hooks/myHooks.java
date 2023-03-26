@@ -16,12 +16,10 @@ import java.util.Properties;
 public class myHooks {
 
     WebDriver webdriver;
-    private ConfigReader configReader;
 
     @Before
     public void setUp(){
-        configReader = new ConfigReader();
-        Properties properties = configReader.initializeConfigProperties();
+        Properties properties = ConfigReader.initializeConfigProperties();
         webdriver = DriverFactory.initializeBrowserDriver(properties.getProperty("browser"));
         webdriver.get(properties.getProperty("URL"));
     }

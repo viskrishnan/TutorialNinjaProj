@@ -31,13 +31,13 @@ public class Login {
 
     @When("User enters valid email address {string} in the email field")
     public void user_enters_valid_email_address_in_the_email_field(String emailAddress) {
-        loginPage.setEnterEmailAddr(emailAddress);
+        loginPage.enterEmailAddress(emailAddress);
         //webDriver.findElement(By.id("input-email")).sendKeys(emailAddress);
     }
 
     @When("User had entered a valid password {string}")
     public void user_had_entered_a_valid_password(String password) {
-        loginPage.setEnterPassword(password);
+        loginPage.enterPassword(password);
         //webDriver.findElement(By.id("input-password")).sendKeys(password);
     }
 
@@ -57,30 +57,29 @@ public class Login {
     @When("User enters invalid email address in the email fields")
     public void user_enters_invalid_email_address_in_the_email_fields() {
         commonUtils = new CommonUtils();
-        loginPage.enterInvalidEmailAddress(commonUtils.getEmailWithTimeStamp());
+        loginPage.enterEmailAddress(commonUtils.getEmailWithTimeStamp());
         //webDriver.findElement(By.id("input-email")).sendKeys(getEmailWithTimeStamp());
     }
 
     @When("User had entered a invalid password {string}")
     public void user_had_entered_a_invalid_password(String invalidPwd) {
-        loginPage.enterInvalidPassword(invalidPwd);
+        loginPage.enterPassword(invalidPwd);
         //webDriver.findElement(By.id("input-password")).sendKeys(invalidPwd);
     }
 
     @Then("User gets warning message for invalid credentials mismatch")
     public void user_gets_warning_message_for_invalid_credentials_mismatch() {
-        Assert.assertTrue(loginPage.validateInvalidCredentialsMismatch().contains("Warning: No match for E-Mail Address and/or Password."));
+//        Assert.assertTrue(loginPage.validateInvalidCredentialsMismatch().contains("Warning: No match for E-Mail Address and/or Password."));
+        Assert.assertTrue(loginPage.getWarningMessageText().contains("Warning: No match for E-Mail Address and/or Password."));
     }
 
     @When("User does not enter email address in the email field")
     public void user_does_not_enter_email_address_in_the_email_field() {
-        loginPage.setDoNotEnterEmailAddr();
-        //webDriver.findElement(By.id("input-email")).sendKeys("");
+        loginPage.enterEmailAddress("");
     }
     @When("User does not enter password in the password field")
     public void user_does_not_enter_password_in_the_password_field() {
-        loginPage.setDoNotEnterPassword();
-        //webDriver.findElement(By.id("input-password")).sendKeys("");
+        loginPage.enterPassword("");
     }
 
 }

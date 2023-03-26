@@ -10,25 +10,26 @@ import utils.ElementsUtils;
 public class HomePage {
 
     WebDriver webDriver;
-    private ElementsUtils elementsUtils;
+    private ElementsUtils elementUtils;
 
     public HomePage(WebDriver webDriver){
         this.webDriver = webDriver;
         PageFactory.initElements(webDriver,this);
+        elementUtils = new ElementsUtils(webDriver);
     }
 
     @FindBy(xpath ="//span[text()='My Account']")
     private WebElement myAccountDropMenu;
 
     public void clickOnMyAccount(){
-        elementsUtils.clickOnElement(myAccountDropMenu, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        elementUtils.clickOnElement(myAccountDropMenu, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
     }
 
     @FindBy(linkText = "Login")
     private WebElement loginToApplication;
 
     public LoginPage clickOnApplicationLogin(){
-        elementsUtils.clickOnElement(loginToApplication, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        elementUtils.clickOnElement(loginToApplication, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
         return new LoginPage(webDriver);
     }
 
@@ -36,7 +37,7 @@ public class HomePage {
     private WebElement registerPage;
 
     public RegisterPage clickOnRegister(){
-        elementsUtils.clickOnElement(registerPage, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        elementUtils.clickOnElement(registerPage, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
         return new RegisterPage(webDriver);
     }
 
@@ -44,14 +45,14 @@ public class HomePage {
     private WebElement enterProductIntoSearchBoxField;
 
     public void setEnterProductIntoSearchBoxField(String searchCriteria){
-        enterProductIntoSearchBoxField.sendKeys(searchCriteria);
+        elementUtils.typeTextIntoElement(enterProductIntoSearchBoxField,searchCriteria,CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
     }
 
     @FindBy(xpath = "//i[@class='fa fa-search']")
     private WebElement clickSearchButton;
 
     public SearchResultsPage setClickSearchButton(){
-        elementsUtils.clickOnElement(clickSearchButton, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
+        elementUtils.clickOnElement(clickSearchButton, CommonUtils.EXPLICIT_WAIT_BASIC_TIME);
         return new SearchResultsPage(webDriver);
     }
 
