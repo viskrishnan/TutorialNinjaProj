@@ -19,16 +19,11 @@ public class DriverFactory {
             case "Chrome":
                 ChromeOptions options = new ChromeOptions();
                 options.addArguments("--no-sandbox"); // Bypass OS security model
-
                 options.addArguments("--disable-dev-shm-usage");
                 options.addArguments("start-maximized"); // open Browser in maximized mode
-
                 options.addArguments("disable-infobars"); // disabling infobars
-
                 options.addArguments("--disable-extensions"); // disabling extensions
-
                 options.addArguments("--disable-gpu"); // applicable to windows os only
-
                 webdriver = new ChromeDriver(options);
                 break;
             case "Edge":
@@ -49,7 +44,6 @@ public class DriverFactory {
     }
 
     public static WebDriver getDriver(){
-
         return webdriver;
     }
 }
